@@ -1,21 +1,60 @@
 # NovaOS
 
-**NovaOS** is a web-based operating system designed to run entirely in the browser, demonstrating how modern web technologies can create an interactive, desktop-like experience.
+NovaOS is a browser-based operating system built to explore how far web technologies can go in creating a desktop-like experience. It runs entirely in the browser and focuses on combining interactivity, design, and functionality in a simple and accessible way.
 
 ---
 
 ## Overview
 
-NovaOS simulates core OS elements such as a desktop environment, window management, and basic file handling within a lightweight web interface.
+This project is an attempt to recreate the feel of a traditional operating system inside the browser. It includes a desktop interface, window handling, and basic app-like behavior, all implemented using core web technologies.
+
+NovaOS is both a working prototype and a learning project, aimed at experimenting with frontend architecture and user experience design.
 
 ---
 
-## Features
+## Core Features
 
-* Desktop-style user interface
-* Window and application management
-* Basic file system simulation
-* Fast, lightweight, and browser-based
+* Desktop-style interface with icons and layout
+* Draggable and interactive windows
+* Basic application simulation
+* Conceptual file system for structure
+* Runs directly in the browser without setup
+
+---
+
+## Architecture (High-Level)
+
+NovaOS is built entirely on the client side:
+
+* UI Layer handles the desktop and visual components
+* State Layer manages interactions and system state
+* App Layer represents individual apps inside the OS
+* Core Engine connects everything and manages behavior
+
+This structure keeps the project simple, modular, and easy to expand.
+
+---
+
+## Tech Stack
+
+* HTML5
+* CSS3
+* JavaScript
+
+---
+
+## Getting Started
+
+To run the project locally, open the `index.html` file in any modern browser.
+
+---
+
+## Project Goals
+
+* Explore OS-like experiences using web technologies
+* Experiment with desktop-inspired UI/UX patterns
+* Build a modular and extendable system
+* Learn and demonstrate frontend design concepts
 
 ---
 
@@ -23,36 +62,28 @@ NovaOS simulates core OS elements such as a desktop environment, window manageme
 
 Developed by:
 
-* **Manan**
-* **Vidushi**
-
----
-
-## Technology Stack
-
-* HTML
-* CSS
-* JavaScript
-
----
-
-## Getting Started
-
-* Open `index.html` in your preferred web browser to run the project
+* Manan
+* Vidushi
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Feel free to fork the repository, improve the project, and submit a pull request.
+If you’re interested in improving the project, feel free to fork it and submit a pull request. Whether it’s UI improvements, new features, or optimizations, contributions are appreciated.
 
 ---
 
 ## Support
 
-If you find this project interesting, consider giving it a star on GitHub.
+If you found this project interesting, consider giving it a star on GitHub.
 
 ---
 
-**Thank you for your interest in NovaOS.**
-— *Team Argus*
+## Live Demo
+
+https://argus-os.netlify.app/
+
+---
+
+NovaOS is a small step towards understanding what the web can really do.
+— Team Argus
