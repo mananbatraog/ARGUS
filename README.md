@@ -1,16 +1,16 @@
-# 🚀 NovaOS
+# NovaOS
 
 **NovaOS** is a web-based operating system designed to run entirely in the browser, demonstrating how modern web technologies can create an interactive, desktop-like experience.
 
 ---
 
-## 💡 Overview
+## Overview
 
 NovaOS simulates core OS elements such as a desktop environment, window management, and basic file handling within a lightweight web interface.
 
 ---
 
-## ✨ Features
+## Features
 
 * Desktop-style user interface
 * Window and application management
@@ -19,7 +19,7 @@ NovaOS simulates core OS elements such as a desktop environment, window manageme
 
 ---
 
-## 👥 Team Argus
+## Team Argus
 
 Developed by:
 
@@ -28,7 +28,7 @@ Developed by:
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 * HTML
 * CSS
@@ -36,19 +36,19 @@ Developed by:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 * Open `index.html` in your preferred web browser to run the project
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome. Feel free to fork the repository, improve the project, and submit a pull request.
 
 ---
 
-## ⭐ Support
+## Support
 
 If you find this project interesting, consider giving it a star on GitHub.
 
