@@ -12,28 +12,24 @@ This project is an attempt to recreate the feel of a traditional operating syste
 
 ## Core Features
 
-* Desktop-style interface with icons and layout
-* Draggable and interactive windows
+* Desktop-style interface
+* Draggable windows
 * Basic application simulation
-* Conceptual file system for structure
-* Runs directly in the browser without setup
+* Conceptual file system
+* Runs directly in the browser
 
 ---
 
-## Architecture (High-Level)
-
-NovaOS is built entirely on the client side:
+## Formation
 
 * UI Layer handles the desktop and visual components
 * State Layer manages interactions and system state
-* App Layer represents individual apps inside the OS
+* App Layer represents individual apps
 * Core Engine connects everything and manages behavior
-
-This structure keeps the project simple, modular, and easy to expand.
 
 ---
 
-## Tech Stack
+## Languages Used
 
 * HTML5
 * CSS3
@@ -56,9 +52,7 @@ To run the project locally, open the `index.html` file in any modern browser.
 
 ---
 
-## Team Argus
-
-Developed by:
+## Developed by:
 
 * Manan
 * Vidushi
@@ -68,12 +62,6 @@ Developed by:
 ## Contributing
 
 If you’re interested in improving the project, feel free to fork it and submit a pull request. Whether it’s UI improvements, new features, or optimizations, contributions are appreciated.
-
----
-
-## Support
-
-If you found this project interesting, consider giving it a star on GitHub.
 
 ---
 
