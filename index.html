@@ -1,0 +1,439 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARGUS | v1.0</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --neon-primary: #00f3ff;
+      /* Electric Cyan */
+      --neon-secondary: #bc13fe;
+      /* Neon Purple */
+      --neon-alert: #ff3333;
+      /* Error Red */
+      --glass-bg: rgba(5, 10, 15, 0.9);
+      /* Darker for better contrast */
+      --glass-border: rgba(0, 243, 255, 0.2);
+      --text-main: #ffffff;
+      --bg-color: #020202;
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-color);
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--text-main);
+    }
+
+    /* CRT SCANLINE OVERLAY */
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 50%,
+          rgba(0, 0, 0, 0.2) 50%,
+          rgba(0, 0, 0, 0.2));
+      background-size: 100% 4px;
+      z-index: 9998;
+      /* Below Intro, Above App */
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* BACKGROUND */
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* INTRO OVERLAY */
+    #intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    /* GLITCH TYPOGRAPHY */
+    #intro-overlay h1 {
+      font-size: 5rem;
+      letter-spacing: 15px;
+      color: var(--neon-primary);
+      text-shadow: 0 0 30px var(--neon-primary);
+      margin: 0;
+      position: relative;
+    }
+
+    #intro-overlay h1::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px;
+      text-shadow: -1px 0 red;
+      top: 0;
+      color: var(--neon-primary);
+      background: black;
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: glitch-anim 3s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+      0% {
+        clip: rect(10px, 9999px, 80px, 0);
+      }
+
+      5% {
+        clip: rect(60px, 9999px, 10px, 0);
+      }
+
+      10% {
+        clip: rect(30px, 9999px, 50px, 0);
+      }
+
+      100% {
+        clip: rect(90px, 9999px, 95px, 0);
+      }
+    }
+
+    @keyframes pulseText {
+      0% {
+        opacity: 0.8;
+        text-shadow: 0 0 20px var(--neon-primary);
+      }
+
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 40px var(--neon-primary);
+      }
+
+      100% {
+        opacity: 0.8;
+        text-shadow: 0 0 20px var(--neon-primary);
+      }
+    }
+
+    /* MAIN GRID LAYOUT */
+    #app-interface {
+      position: relative;
+      z-index: 10;
+      width: 95%;
+      height: 92vh;
+      margin: 4vh auto;
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      /* Sidebars, flex center */
+      gap: 20px;
+      opacity: 0;
+      /* Hidden until intro click */
+      pointer-events: none;
+      /* Disabled until intro click */
+    }
+
+    /* PANELS | TECH-WEAR CORNERS */
+    .panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      padding: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+
+      /* Clip Path for Tactical Corners */
+      clip-path: polygon(0% 15px,
+          15px 0%,
+          100% 0%,
+          100% calc(100% - 15px),
+          calc(100% - 15px) 100%,
+          0% 100%);
+    }
+
+    /* Decorative corner accents */
+    .panel::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      border-bottom: 2px solid var(--neon-primary);
+      border-right: 2px solid var(--neon-primary);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-weight: 700;
+      letter-spacing: 2px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* FILE BUTTON (HIGH VISIBILITY) */
+    .import-btn {
+      background: var(--neon-primary);
+      color: #000;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+      border-radius: 2px;
+      /* Slight adjust for tech look */
+      transition: transform 0.2s, box-shadow 0.2s;
+      clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    }
+
+    .import-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+    }
+
+    /* PLAYLIST */
+    #playlist-container {
+      margin-top: 15px;
+      overflow-y: auto;
+      flex-grow: 1;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .playlist-slot {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .playlist-slot:hover {
+      background: rgba(0, 243, 255, 0.1);
+      color: var(--neon-primary);
+      padding-left: 18px;
+      /* Slide effect */
+    }
+
+    .playlist-slot.active {
+      color: var(--neon-primary);
+      border-left: 3px solid var(--neon-primary);
+      background: rgba(0, 243, 255, 0.05);
+    }
+
+    /* CENTER STAGE */
+    .main-stage {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Video Container for 3 Filters */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    video {
+      width: 100%;
+      max-height: 50vh;
+      background: black;
+      display: block;
+      transition: filter 0.5s ease;
+    }
+
+    /* TACTICAL FILTER CLASSES */
+    .mode-std {
+      filter: none;
+    }
+
+    .mode-night {
+      filter: grayscale(100%) sepia(100%) hue-rotate(90deg) contrast(1.2) brightness(1.1);
+    }
+
+    .mode-thermal {
+      filter: invert(100%) grayscale(100%) contrast(200%);
+    }
+
+    /* VISUALIZER */
+    .vis-wrapper {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    /* CONTROLS */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .control-btn {
+      background: transparent;
+      border: 1px solid var(--neon-primary);
+      color: var(--neon-primary);
+      padding: 10px 30px;
+      border-radius: 4px;
+      /* Tactical square look */
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .control-btn:hover {
+      background: var(--neon-primary);
+      color: black;
+      box-shadow: 0 0 15px var(--neon-primary);
+    }
+
+    .filter-btn {
+      padding: 5px 15px;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+    }
+
+    .filter-btn.active {
+      background: var(--neon-primary);
+      color: black;
+    }
+
+    /* RIGHT PANEL (AUDIO) */
+    .eq-control {
+      margin-bottom: 25px;
+    }
+
+    .eq-control label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--neon-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input[type=range] {
+      width: 100%;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      height: 4px;
+      border-radius: 2px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--neon-secondary);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--neon-secondary);
+    }
+
+    /* TOOLTIP HOVER CLOUD */
+    #hover-cloud {
+      position: fixed;
+      pointer-events: none;
+      width: auto;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid var(--neon-primary);
+      color: var(--neon-primary);
+      font-size: 1rem;
+      text-transform: uppercase;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+    }
+
+    /* Error Toast */
+    #error-log {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--neon-alert);
+      font-size: 0.8rem;
+      text-shadow: 0 0 5px var(--neon-alert);
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="scanlines"></div>
+  <div id="canvas-container"></div>
+
+  <div id="intro-overlay">
+    <h1 data-text="ARGUS">ARGUS</h1>
+    <p style="color:white; margin-top: 10px; font-size: 1.7rem;">// TO LAUNCH NOVA OS PRESS N // </p>
+  </div>
+
+  <div id="hover-cloud">AWAITING INPUT</div>
+  <script>
+    const intro = document.getElementById("intro-overlay");
+    document.addEventListener("keydown", function (e) {
+      const key = e.key.toLowerCase();
+      if (key === "n") {
+        window.location.href = "NovaOS-main/index.html";
+      }
+
+      if (key === "m") {
+        window.location.href = "Nov/NovOS-master/index.html";
+      }
+    });
+
+
+    
+  </script>
