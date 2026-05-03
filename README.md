@@ -1,63 +1,58 @@
 # 🚀 NovaOS
 
-Hey! 👋
-Welcome to **NovaOS** — a fun little experiment where we tried to turn the browser into something that feels like an actual operating system.
-
-It’s not meant to replace your OS (don’t worry 😄), but to explore what’s possible with just web technologies and a bit of curiosity.
+**NovaOS** is a web-based operating system designed to run entirely in the browser, demonstrating how modern web technologies can create an interactive, desktop-like experience.
 
 ---
 
-## 💡 What’s inside?
+## 💡 Overview
 
-* A desktop-like interface you can play around with
-* Windows, apps, and interactions (just like a mini OS)
-* A simple file system concept
-* Lightweight and runs right in your browser
+NovaOS simulates core OS elements such as a desktop environment, window management, and basic file handling within a lightweight web interface.
 
 ---
 
-## 👥 Who made this?
+## ✨ Features
 
-We’re **Team Argus**:
-
-* Manan
-* Vidushi
-
-Just two people building and experimenting 🚀
+* Desktop-style user interface
+* Window and application management
+* Basic file system simulation
+* Fast, lightweight, and browser-based
 
 ---
 
-## 🛠️ Built with
+## 👥 Team Argus
 
-Mostly:
+Developed by:
+
+* **Manan**
+* **Vidushi**
+
+---
+
+## 🛠️ Technology Stack
 
 * HTML
 * CSS
 * JavaScript
 
-(Simple tools, big ideas.)
+---
+
+## 🚀 Getting Started
+
+* Open `index.html` in your preferred web browser to run the project
 
 ---
 
-## 🚀 How to run it
+## 🤝 Contributing
 
-Go into the folder:
-
-Then just open `index.html` in your browser — that’s it!
+Contributions are welcome. Feel free to fork the repository, improve the project, and submit a pull request.
 
 ---
 
-## 🤝 Want to contribute?
+## ⭐ Support
 
-If you have ideas, improvements, or just want to experiment, feel free to fork it and make a PR. We'd love to see what you build on top of it.
-
----
-
-## ⭐ One small favor
-
-If you liked NovaOS or found it interesting, consider giving it a star ⭐ — it really means a lot to us.
+If you find this project interesting, consider giving it a star on GitHub.
 
 ---
 
-Thanks for stopping by and checking this out 💙
+**Thank you for your interest in NovaOS.**
 — *Team Argus*
