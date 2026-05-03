@@ -18,6 +18,8 @@ This project is an attempt to recreate the feel of a traditional operating syste
 * Conceptual file system
 * Runs directly in the browser
 * Multiple In-built Games
+* AI chatbot (Beta)
+* Icon pack (Beta)
 
 ---
 
