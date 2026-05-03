@@ -17,6 +17,7 @@ This project is an attempt to recreate the feel of a traditional operating syste
 * Basic application simulation
 * Conceptual file system
 * Runs directly in the browser
+* Multiple In-built Games
 
 ---
 
