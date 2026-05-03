@@ -8,8 +8,6 @@ NovaOS is a browser-based operating system built to explore how far web technolo
 
 This project is an attempt to recreate the feel of a traditional operating system inside the browser. It includes a desktop interface, window handling, and basic app-like behavior, all implemented using core web technologies.
 
-NovaOS is both a working prototype and a learning project, aimed at experimenting with frontend architecture and user experience design.
-
 ---
 
 ## Core Features
